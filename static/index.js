@@ -7,17 +7,18 @@ function show(id){
 function like(id){
     let formdata = new FormData()
     formdata.append("id", id)
+    var sign = $("#filter").value.charAt(0)
     fetch(`/like`, {method:"POST", body:formdata}).then((res) => {return res.json()}).then((data) => {
         if(data['res'] == "like"){
-            document.getElementsByClassName("post-" + id)[0].getElementsByClassName("like-btn")[0].style.color = "red"
-            document.getElementsByClassName("post-" + id)[0].getElementsByClassName("likes")[0].innerText = parseInt(document.getElementsByClassName("post-" + id)[0].getElementsByClassName("likes")[0].innerText) + 1
+            document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("like-btn")[0].style.color = "red"
+            document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("likes")[0].innerText = parseInt(document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("likes")[0].innerText) + 1
             return
         }if(data['res'] == "login_please"){
             alertify.error("Please Login!")
             return
         }else{
-            document.getElementsByClassName("post-" + id)[0].getElementsByClassName("like-btn")[0].style.color = "white"
-            document.getElementsByClassName("post-" + id)[0].getElementsByClassName("likes")[0].innerText = parseInt(document.getElementsByClassName("post-" + id)[0].getElementsByClassName("likes")[0].innerText) - 1
+            document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("like-btn")[0].style.color = "white"
+            document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("likes")[0].innerText = parseInt(document.getElementsByClassName("post-" + id + `-${sign}`)[0].getElementsByClassName("likes")[0].innerText) - 1
             return
         }
     })
@@ -36,10 +37,10 @@ function hideAll(l){
 }
 
 window.addEventListener("load", () => {
-    if(localStorage.getItem("lang") != ""){
+    if(localStorage.getItem("lang") != "null"){
         document.getElementById("lang-select").value = localStorage.getItem("lang")
     }
-    if(localStorage.getItem("filter") != ""){
+    if(localStorage.getItem("filter") != "null"){
         document.getElementById("filter").value = localStorage.getItem("filter")
         filterFunc(localStorage.getItem("filter"))
     }

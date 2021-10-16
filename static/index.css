@@ -35,6 +35,7 @@ hr{
     background-color: #2A2E35;
     border-radius: 10px;
     box-shadow: 0px 0px 20px #0000009c;
+    z-index: 1000;
 }
 #nav a{
     color:white;
@@ -56,6 +57,7 @@ hr{
     position: fixed;
     color: white;
     border-radius: 10px;
+    z-index: 1000;
     padding: 10px 20px;
     bottom: 169px;
     animation: welcome-div-anim 0.5s ease-in;
@@ -91,6 +93,7 @@ hr{
     font-size: 25px;
     padding: 20px;
     border-radius: 10px;
+    z-index: 1000;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
 }
@@ -126,6 +129,7 @@ hr{
     left: 50%;
     top: 50%;
     font-size: 25px;
+    z-index: 1000;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -164,6 +168,7 @@ hr{
     top: 50%;
     font-size: 25px;
     padding: 20px;
+    z-index: 1000;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
@@ -254,6 +259,7 @@ hr{
     top: 50%;
     font-size: 25px;
     padding: 10px 50px;
+    z-index: 1000;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
@@ -278,6 +284,7 @@ hr{
     top: 38px;
     font-size: 40px;
     cursor:pointer;
+    z-index: 1000;
     display: none;
     box-shadow: 0px 0px 20px #0000009c;
 }
@@ -298,6 +305,7 @@ hr{
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
+    z-index: 1000;
     display: none;
 }
 #nav-mobile a{
@@ -316,6 +324,7 @@ hr{
     text-align: center;
     width: 400px;
     overflow-y: scroll;
+    z-index: 1000;
     height: 400px;
     box-shadow: 0px 0px 20px #0000009c;
 }
@@ -358,6 +367,7 @@ tr:nth-child(even) {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
+    z-index: 1000;
 }
 #userProfile #close{
     cursor: pointer;
@@ -379,6 +389,7 @@ tr:nth-child(even) {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 20px #0000009c;
+    z-index: 1000;
 }
 #search input{
     font-size: 25px;
