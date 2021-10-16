@@ -1,0 +1,256 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index.css?r={{r}}">
+    <link rel="shortcut icon" href="/static/logo.png?r={{r}}" type="image/x-icon">
+    <script>
+        var today = "{{tdy}}"
+    </script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>hljs.highlightAll()</script>
+    <script src="/static/index.js?r={{r}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/383a3bf828.js" crossorigin="anonymous"></script>
+    <title>Code Bros</title>
+</head>
+<body>
+    {%with messages = get_flashed_messages(with_categories=true)%}
+        {%if messages%}
+            {%for category, message in messages%}
+                {%if category == 'error'%}
+                    <script>alertify.error('{{message}}')</script>
+                {%else%}
+                    <script>alertify.success('{{message}}')</script>
+    {%endif%}{%endfor%}{%endif%}{%endwith%}
+
+    <div id="nav">
+        <a href="/"><i class="fas fa-home"></i></a>
+        <a href="javascript:show('leaderboard');hideAll(['postDiv','search', 'account', 'userProfile'])"><img draggable="false" src="/static/leaderboard.png?r={{r}}" alt="Failed"></a>
+        <a href="javascript:show('search');hideAll(['postDiv', 'leaderboard','account', 'userProfile'])"><i class="fas fa-search"></i></a>
+        <a href="javascript:show('postDiv');hideAll(['leaderboard','search', 'account', 'userProfile'])"><i class="fas fa-plus"></i></a>
+        <a href="javascript:account('{{islogged}}');hideAll(['postDiv', 'search','leaderboard', 'userProfile'])"><i class="fas fa-user-circle"></i></a>
+    </div>
+    <div onclick="show('nav-mobile');hideAll(['postDiv', 'search','leaderboard', 'account', 'userProfile'])" id="nav-mobile-btn"><i class="fas fa-bars"></i></div>
+    <div id="nav-mobile">
+        <div onclick="hide('nav-mobile')" id="close">&times;</div>
+        <a href="/">Home</a><br><br>
+        <a href="javascript:show('leaderboard');hideAll(['postDiv', 'search','account', 'userProfile'])">Leaderboard</a><br><br>
+        <a href="javascript:show('search');hideAll(['postDiv', 'leaderboard','account', 'userProfile'])">search</a><br><br>
+        <a href="javascript:show('postDiv');hideAll(['leaderboard', 'search','account', 'userProfile'])">New Post</a><br><br>
+        <a href="javascript:account('{{islogged}}');hideAll(['postDiv', 'search','leaderboard', 'userProfile'])">Account</a>
+    </div>
+
+    <div id="search" style="display: none;">
+        <div onclick="hide('search')" id="close">&times;</div>
+        <h2>Search</h2>
+        <input autocomplete="off" placeholder="Search" type="search" id="search-text" oninput="search(this.value)">
+        <div id="search-res"></div>
+    </div>
+
+    <div id="leaderboard" style="display: none;">
+        <div onclick="hide('leaderboard')" id="close">&times;</div>
+        <h2>Leaderboard</h2>
+            <table>
+                <tr id='main-tr'>
+                    <th>Username</th>
+                    <th>Score</th>
+                </tr>
+                {%for user in leaderBoardNames%}
+                    <tr onclick="user('{{user}}')">
+                        <th>{{user}}</th>
+                        <th>{{leaderboard[user]}} 🔥</th>
+                    </tr>
+                {%endfor%}
+            </table>
+    </div>
+
+    <div id="postDiv" style="display: none;">
+        <div onclick="hide('postDiv')" id="close">&times;</div>
+        <h2>New Code Block</h2>
+        <form action="/new-post" method="POST">
+            <textarea required placeholder="Code" name="code" rows="7" cols="30"></textarea><br><br>
+            <select id="lang-select" oninput="localStorage.setItem('lang', this.value)" required name="lang" style="width:90px; display:inline; border-radius:10px;">      
+                <option value="c">C</option>
+                <option value="c++">C++</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="php">PHP</option>
+                <option value="c#">C#</option>
+                <option value="vb">VB</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">Javascript</option>
+                <option value="ruby">Ruby</option>
+                <option value="perl">Perl</option>
+                <option value="pascal">Pascal</option>
+                <option value="r">R</option>
+                <option value="fortran">Fortran</option>
+                <option value="assembly">Assembly</option>
+                <option value="objc">Objective C</option>
+                <option value="sqlite3">SQLite</option>
+                <option value="swift">Swift</option>
+                <option value="rust">Rust</option>
+                <option value="go">Go</option>
+                <option value="bash">Bash</option> 
+            </select>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+
+    <div id="userProfile" style="display: none;">
+        <div onclick="hide('userProfile')" id="close">&times;</div>
+        <h2>User's Profile</h2>
+        <i class="fas fa-user-circle"></i><br>
+        <h3 id="name-userProfile"></h3>
+        <h4>Joined <span id="joined-userProfile"></span></h4>
+        <h4><span id="points-userProfile"></span> 🔥 <span id="bd-userProfile"></span></h4>
+    </div>
+ 
+    <div id="account" style="display: none;">
+        <div onclick="hide('account')" id="close">&times;</div>
+        <h2>Your Account</h2>
+        <i class="fas fa-user-circle"></i><br>
+        <h3>{{name}}</h3>
+        <h4>Joined {{joined}}</h4>
+        <h4>{{points}} 🔥
+            {%if isbd%}
+                🎂
+            {%endif%}
+        </h4>
+    </div>
+
+    {%if islogged == False%}
+
+        <div id="auth">
+            <h3>You are not in my database yet, i am inviting you to join us!</h3>
+            <button onclick="show('login');hide('signup')">Login</button>
+            <button onclick="show('signup');hide('login')">Signup</button>
+            <button onclick="hide('auth')">Close</button>
+        </div>
+
+
+        <div id="signup" style="display: none;">
+            <div onclick="hide('signup')" id="close">&times;</div>
+            <h2 style="text-align: center;">Sign Up</h2>
+            <form action="/signup" method="POST">
+                <input required autocomplete="off" type="text" placeholder="Username" name="name"><br><br>
+                <input required autocomplete="off" type="password" placeholder="Password" name="pw"><br><br>
+                <input required autocomplete="off" type="email" placeholder="Email" name="mail"><br><br>
+                <label for="bd">Birthday: </label><input required name="birthday" id="bd" type="date" name="date"><br><br>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+
+        <div id="login" style="display: none;">
+            <div onclick="hide('login')" id="close">&times;</div>
+            <h2 style="text-align: center;">Login</h2>
+            <form action="/login" method="POST">
+                <input required autocomplete="off" type="text" placeholder="Username" name="name"><br><br>
+                <input required autocomplete="off" type="password" placeholder="Password" name="pw"><br><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+    {%endif%}
+
+
+    <br><br><br><br><br><br><br><br>
+    <div id="home">
+        <select id="filter" oninput="filterFunc(this.value)">
+            <option value="random-posts">Sort By Random Posts</option>
+            <option value="latest">Sort By Latest Posts</option>
+            <option value="most-popular">Sort By Most Popular</option>
+        </select><br><br>
+        <div id="random-posts">
+            {%for post in randomPosts%}
+                <div class="post-{{post}}-r" id="post">
+                    <pre><code id="code-block" class="language-{{randomPosts[post]['lang']}}">{{randomPosts[post]['code']}}</code></pre>
+                    <br><br>
+                    <span id="poster" onclick="user(`{{randomPosts[post]['author']}}`)">{{randomPosts[post]['author']}}</span>
+                    <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
+                    <span class="likes" id="likes">{{randomPosts[post]['likes']|length}}</span><br><br>
+                    <span class="date"></span>
+                    <script>
+                        window.addEventListener("load", () => {
+                            document.getElementsByClassName("post-{{post}}-r")[document.getElementsByClassName("post-{{post}}-r").length-1].getElementsByClassName("date")[0].innerText = moment("{{randomPosts[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()
+                        })
+                    </script>
+                    {%if name in randomPosts[post]['likes']%}
+                        <script>
+                            window.addEventListener("load", () => {
+                                document.getElementsByClassName("post-{{post}}-r")[0].getElementsByClassName("like-btn")[0].style.color = "red"
+                            })
+                        </script>
+                    {%endif%}
+                    <br><hr><br><br>
+                </div>
+            {%endfor%}
+        </div>
+        <div id="latest" style="display: none;">
+            {%for post in latest%}
+                <div class="post-{{post}}-l" id="post">
+                    <pre><code id="code-block" class="language-{{latest[post]['lang']}}">{{latest[post]['code']}}</code></pre>
+                    <br><br>
+                    <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
+                    <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
+                    <span class="likes" id="likes">{{latest[post]['likes']|length}}</span><br><br>
+                    <span class="date"></span>
+                    <script>
+                        window.addEventListener("load", () => {
+                            document.getElementsByClassName("post-{{post}}-l")[document.getElementsByClassName("post-{{post}}-l").length-1].getElementsByClassName("date")[0].innerText = moment("{{latest[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()
+                        })
+                    </script>
+                    {%if name in latest[post]['likes']%}
+                        <script>
+                            window.addEventListener("load", () => {
+                                document.getElementsByClassName("post-{{post}}-l")[0].getElementsByClassName("like-btn")[0].style.color = "red"
+                            })
+                        </script>
+                    {%endif%}
+                    <br><hr><br><br>
+                </div>
+            {%endfor%}
+        </div>
+        <div id="most-popular" style="display: none;">
+            {%for post in byMostPopular%}
+                <div class="post-{{post}}-m" id="post">
+                    <pre><code id="code-block" class="language-{{latest[post]['lang']}}">{{latest[post]['code']}}</code></pre>
+                    <br><br>
+                    <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
+                    <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
+                    <span class="likes" id="likes">{{latest[post]['likes']|length}}</span><br><br>
+                    <span class="date"></span>
+                    <script>
+                        window.addEventListener("load", () => {
+                            document.getElementsByClassName("post-{{post}}-m")[document.getElementsByClassName("post-{{post}}-m").length-1].getElementsByClassName("date")[0].innerText = moment("{{latest[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()
+                        })
+                    </script>
+                    {%if name in latest[post]['likes']%}
+                        <script>
+                            window.addEventListener("load", () => {
+                                document.getElementsByClassName("post-{{post}}-m")[0].getElementsByClassName("like-btn")[0].style.color = "red"
+                            })
+                        </script>
+                    {%endif%}
+                    <br><hr><br><br>
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+
+
+
+    <br><br><br>
+
+</body>
+</html>
