@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/index.css?r={{r}}">
     <link rel="shortcut icon" href="/static/logo.png?r={{r}}" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://momentjs.com/downloads/moment-timezone-with-data-10-year-range.js"></script>
     <script>
         var today = "{{tdy}}"
     </script>
@@ -13,7 +15,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script>hljs.highlightAll()</script>
     <script src="/static/index.js?r={{r}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
@@ -32,7 +33,7 @@
                     <script>alertify.success('{{message}}')</script>
     {%endif%}{%endfor%}{%endif%}{%endwith%}
     <div id="page">
-        <div id="nav">
+        <div id="nav">  
             <a href="/"><i class="fas fa-home"></i></a>
             <a href="javascript:show('leaderboard');hideAll(['postDiv','search', 'account', 'userProfile'])"><img draggable="false" src="/static/leaderboard.png?r={{r}}" alt="Failed"></a>
             <a href="javascript:show('search');hideAll(['postDiv', 'leaderboard','account', 'userProfile'])"><i class="fas fa-search"></i></a>
@@ -65,8 +66,12 @@
                         <th>Score</th>
                     </tr>
                     {%for user in leaderBoardNames%}
-                        <tr onclick="user('{{user}}')">
-                            <th>{{user}}</th>
+                        <tr onclick="user('{{user}}')"
+                        {%if user == name%}
+                            
+                        {%endif%}
+                        >
+                            <th>{{leaderBoardNames.index(user)+1}}- {{user}}</th>
                             <th>{{leaderboard[user]}} 🔥</th>
                         </tr>
                     {%endfor%}
@@ -77,8 +82,8 @@
             <div onclick="hide('postDiv')" id="close">&times;</div>
             <h2>New Code Block</h2>
             <form action="/new-post" method="POST">
-                <textarea required placeholder="Code" name="code" rows="7" cols="30"></textarea><br><br>
-                <select id="lang-select" oninput="localStorage.setItem('lang', this.value)" required name="lang" style="width:90px; display:inline; border-radius:10px;">      
+                <textarea required placeholder="Code" name="code" rows="7"></textarea><br><br>
+                <select id="lang-select" oninput="localStorage.setItem('lang', this.value)" required name="lang" style="display:inline; border-radius:10px;">      
                     <option value="c">C</option>
                     <option value="c++">C++</option>
                     <option value="java">Java</option>

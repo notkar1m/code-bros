@@ -172,17 +172,22 @@ hr{
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
+    width: 90%;
 }
 #postDiv textarea{
     font-size: 25px;
     border-radius: 20px;
-    padding:10px;
+    padding: 10px;
     border: none;
     outline: none;
-    box-shadow: 0 0 20px 0px #2A2E35;
+    box-shadow: 0 0 20px 0px #2a2e35;
     resize: none;
     overflow-wrap: normal;
+    background: #12181B;
+    color: white;
     overflow-x: scroll;
+    width: fit-content;
+
 }
 #postDiv input{
     font-size: 25px;
@@ -292,21 +297,22 @@ hr{
     cursor: pointer;
     position: relative;
     width: fit-content;
-    left: 139%;
+    left: 103%;
     color: #fa8142;
-    top: -50px;
+    top: -19px;
 }
 #nav-mobile{
     position: fixed;
     background-color: #2A2E35;
     font-size: 30px;
-    padding: 80px 120px;
+    padding: 20px 60px;
     border-radius: 20px;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
     z-index: 1000;
     display: none;
+    width: 50%;
     box-shadow: 0px 0px 20px #0000009c;
 }
 #nav-mobile a{
@@ -391,14 +397,16 @@ tr:nth-child(even) {
     border-radius: 10px;
     box-shadow: 0px 0px 20px #0000009c;
     z-index: 1000;
+    width: 84%;
 }
 #search input{
     font-size: 25px;
     border-radius: 20px;
-    padding:10px;
+    padding: 10px;
     border: none;
+    width: 100%;
     outline: none;
-    box-shadow: 0 0 20px 0px #2A2E35;
+    box-shadow: 0 0 20px 0px #2a2e35;
 }
 #search button{
     font-size: 25px;
@@ -456,6 +464,19 @@ tr:nth-child(even) {
 }
 #footer a:hover{
     text-decoration: underline;
+}
+
+.divElement{
+    animation: divAppear 0.5s ease-in;
+}
+
+@keyframes divAppear {
+    from { 
+        left: -960px;
+    }
+    to{ 
+        left: 0
+    }
 }
 
 @media screen and (max-width: 1093px) {

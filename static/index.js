@@ -1,8 +1,23 @@
 function hide(id){
     document.getElementById(id).style.display = "none"
+    unblur(["nav", "home"])
 }
 function show(id){
     document.getElementById(id).style.display = "unset"
+    document.getElementById(id).className = "divElement"
+    blur(["nav", "home"])
+}
+function blur(ids){
+    for(let i=0;i<ids.length;i++){
+        document.getElementById(ids[i]).style.filter = "blur(7px)"
+        document.getElementById(ids[i]).style.opacity = 0.7
+    }
+}
+function unblur(ids){
+    for(let i=0;i<ids.length;i++){
+        document.getElementById(ids[i]).style.filter = "none"
+        document.getElementById(ids[i]).style.opacity = 1
+    }
 }
 function like(id){
     let formdata = new FormData()
@@ -27,7 +42,7 @@ function account(status){
     if(status == "True"){
         show("account")
     }else{
-        show("auth")
+        document.getElementById("auth").style.display = "unset"
     }
 }
 function hideAll(l){
@@ -104,19 +119,19 @@ function search(text){
 }
 function filterFunc(val){
     if(val == "latest"){
-        show("latest")
-        hide("most-popular")
-        hide("random-posts")
+        document.getElementById("latest").style.display = "unset"
+        document.getElementById("most-popular").style.display = "none"
+        document.getElementById("random-posts").style.display = "none"
     }
     if(val == "random-posts"){
-        show("random-posts")
-        hide("most-popular")
-        hide("latest")
+        document.getElementById("random-posts").style.display = "unset"
+        document.getElementById("most-popular").style.display = "none"
+        document.getElementById("latest").style.display = "none"
     }
     if(val == "most-popular"){
-        show("most-popular")
-        hide("latest")
-        hide("random-posts")
+        document.getElementById("most-popular").style.display = "unset"
+        document.getElementById("latest").style.display = "none"
+        document.getElementById("random-posts").style.display = "none"
     }
     localStorage.setItem("filter", val)
 }
