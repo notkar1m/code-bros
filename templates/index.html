@@ -187,7 +187,7 @@
                         <span class="likes" id="likes">{{randomPosts[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
                         <br><br>
-                        <span class="date"></span>
+                        <span class="date"></span><span id="lang">, {{randomPosts[post]['lang']}}</span>
                         <script>
                             window.addEventListener("load", () => {
                                 document.getElementsByClassName("post-{{post}}-r")[document.getElementsByClassName("post-{{post}}-r").length-1].getElementsByClassName("date")[0].innerText = moment("{{randomPosts[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()
@@ -214,7 +214,7 @@
                         <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
                         <br><br>
-                        <span class="date"></span>
+                        <span class="date"></span><span id="lang">, {{latest[post]['lang']}}</span>
                         <script>
                             window.addEventListener("load", () => {
                                 document.getElementsByClassName("post-{{post}}-l")[document.getElementsByClassName("post-{{post}}-l").length-1].getElementsByClassName("date")[0].innerText = moment("{{latest[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()
@@ -241,7 +241,7 @@
                         <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
                         <br><br>
-                        <span class="date"></span>
+                        <span class="date"></span><span id="lang">, {{latest[post]['lang']}}</span>
                         <script>
                             window.addEventListener("load", () => {
                                 document.getElementsByClassName("post-{{post}}-m")[document.getElementsByClassName("post-{{post}}-m").length-1].getElementsByClassName("date")[0].innerText = moment("{{latest[post]['date']}}", "YYYY/MM/DD-h:mm:ss").fromNow()

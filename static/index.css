@@ -238,12 +238,13 @@ hr{
     background: #2a2e35;
     color: white;
 }
-#post .date{
+#post .date, #lang{
     color: grey;
     font-weight: 400;
     font-style: italic;
     font-size: 15px;
 }
+
 #post span{
     font-weight: 400;
     font-size: 20px;
