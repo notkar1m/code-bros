@@ -268,6 +268,7 @@ hr{
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
+    width:70%;
 }
 #account #close{
     cursor: pointer;
@@ -317,6 +318,9 @@ hr{
 }
 #nav-mobile a{
     color: white;
+}
+.share-btn{
+    cursor: pointer;
 }
 
 #leaderboard{
@@ -375,6 +379,7 @@ tr:nth-child(even) {
     text-align: center;
     box-shadow: 0px 0px 20px #0000009c;
     z-index: 1000;
+    width:70%;
 }
 #userProfile #close{
     cursor: pointer;

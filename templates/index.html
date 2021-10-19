@@ -24,14 +24,7 @@
     <title>Code Bros</title>
 </head>
 <body>
-    {%with messages = get_flashed_messages(with_categories=true)%}
-        {%if messages%}
-            {%for category, message in messages%}
-                {%if category == 'error'%}
-                    <script>alertify.error('{{message}}')</script>
-                {%else%}
-                    <script>alertify.success('{{message}}')</script>
-    {%endif%}{%endfor%}{%endif%}{%endwith%}
+
     <div id="page">
         <div id="nav">  
             <a href="/"><i class="fas fa-home"></i></a>
@@ -191,7 +184,9 @@
                         <br><br>
                         <span id="poster" onclick="user(`{{randomPosts[post]['author']}}`)">{{randomPosts[post]['author']}}</span>
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
-                        <span class="likes" id="likes">{{randomPosts[post]['likes']|length}}</span><br><br>
+                        <span class="likes" id="likes">{{randomPosts[post]['likes']|length}}</span>
+                        <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
+                        <br><br>
                         <span class="date"></span>
                         <script>
                             window.addEventListener("load", () => {
@@ -216,7 +211,9 @@
                         <br><br>
                         <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
-                        <span class="likes" id="likes">{{latest[post]['likes']|length}}</span><br><br>
+                        <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
+                        <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i>asdasdasd</span>
+                        <br><br>
                         <span class="date"></span>
                         <script>
                             window.addEventListener("load", () => {
@@ -241,7 +238,9 @@
                         <br><br>
                         <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
-                        <span class="likes" id="likes">{{latest[post]['likes']|length}}</span><br><br>
+                        <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
+                        <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
+                        <br><br>
                         <span class="date"></span>
                         <script>
                             window.addEventListener("load", () => {
@@ -268,3 +267,18 @@
 
 </body>
 </html>
+{%with messages = get_flashed_messages(with_categories=true)%}
+{%if messages%}
+    {%for category, message in messages%}
+        {%if category == 'error'%}
+            <script>alertify.error('{{message}}')</script>
+        {%elif category == "redirect"%}
+
+            <script>
+                filterFunc("random-posts")
+                document.getElementsByClassName("post-{{message}}-r")[0].scrollIntoView()
+            </script>
+
+        {%else%}
+            <script>alertify.success('{{message}}')</script>
+{%endif%}{%endfor%}{%endif%}{%endwith%}

@@ -92,6 +92,14 @@ def index():
         tdy=datetime.datetime.now().strftime("%m-%d")
         )
 
+@app.route('/post/<id>')
+def goto_post(id):
+    if id in posts.keys():
+        flash(str(id), category="redirect")
+        return redirect("/")
+    flash("Post not found!", category="error")
+    return redirect("/")
+
 @app.route('/signup', methods=['POST'])
 def signup():
     name = request.form['name']
