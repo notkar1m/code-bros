@@ -76,6 +76,7 @@
             <h2>New Code Block</h2>
             <form action="/new-post" method="POST">
                 <textarea required placeholder="Code" name="code" rows="7"></textarea><br><br>
+                <input autocomplete="off" type="text" placeholder="Caption [Optional]" name="caption"><br><br>
                 <select id="lang-select" oninput="localStorage.setItem('lang', this.value)" required name="lang" style="display:inline; border-radius:10px;">      
                     <option value="c">C</option>
                     <option value="c++">C++</option>
@@ -116,10 +117,10 @@
         <div id="userProfile" style="display: none;">
             <div onclick="hide('userProfile')" id="close">&times;</div>
             <h2>User's Profile</h2>
-            <i class="fas fa-user-circle"></i><br>
+            <i id="pfp-user" class="fas fa-user-circle"></i><br>
             <h3 id="name-userProfile"></h3>
             <h4>Joined <span id="joined-userProfile"></span></h4>
-            <h4><span id="points-userProfile"></span> 🔥 <span id="bd-userProfile"></span></h4>
+            <h4><span id="points-userProfile"></span> 🔥 <span id="bd-userProfile"></span><span onclick="share_user()" id="share-btn"><i class="fas fa-share"></i></span></h4>
         </div>
     
         <div id="account" style="display: none;">
@@ -183,6 +184,10 @@
                         <pre><code id="code-block" class="language-{{randomPosts[post]['lang']}}">{{randomPosts[post]['code']}}</code></pre>
                         <br><br>
                         <span id="poster" onclick="user(`{{randomPosts[post]['author']}}`)">{{randomPosts[post]['author']}}</span>
+                        {%if randomPosts[post]['caption']%}
+                            <span>: {{randomPosts[post]['caption']}}</span>
+                            <br><br>
+                        {%endif%}
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
                         <span class="likes" id="likes">{{randomPosts[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
@@ -210,6 +215,10 @@
                         <pre><code id="code-block" class="language-{{latest[post]['lang']}}">{{latest[post]['code']}}</code></pre>
                         <br><br>
                         <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
+                        {%if randomPosts[post]['caption']%}
+                            <span>: {{latest[post]['caption']}}</span>
+                            <br><br>
+                        {%endif%}
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
                         <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
@@ -237,6 +246,10 @@
                         <pre><code id="code-block" class="language-{{latest[post]['lang']}}">{{latest[post]['code']}}</code></pre>
                         <br><br>
                         <span id="poster" onclick="user(`{{latest[post]['author']}}`)">{{latest[post]['author']}}</span>
+                        {%if randomPosts[post]['caption']%}
+                            <span>: {{latest[post]['caption']}}</span>
+                            <br><br>
+                        {%endif%}
                         <span class="like-btn" id="like-btn" onclick="like('{{post}}')"><i class="fas fa-heart"></i></span>
                         <span class="likes" id="likes">{{latest[post]['likes']|length}}</span>
                         <span class="share-btn" onclick="share('{{post}}')"><i class="fas fa-share"></i></span>
@@ -277,6 +290,11 @@
             <script>
                 filterFunc("random-posts")
                 document.getElementsByClassName("post-{{message}}-r")[0].scrollIntoView()
+            </script>
+        {%elif category == "user"%}
+
+            <script>
+                user("{{message}}")
             </script>
 
         {%else%}

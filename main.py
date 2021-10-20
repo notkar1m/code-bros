@@ -99,6 +99,14 @@ def goto_post(id):
         return redirect("/")
     flash("Post not found!", category="error")
     return redirect("/")
+    
+@app.route('/user/<name>')
+def goto_name(name):
+    if name in data.keys():
+        flash(str(name), category="user")
+        return redirect("/")
+    flash("User not found!", category="error")
+    return redirect("/")
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -155,6 +163,11 @@ def new_post():
     code = request.form['code']
     name = request.cookies.get('name')
     pw = request.cookies.get('pw')
+    try:
+        caption = request.form["caption"]
+    except KeyError:
+        caption = None
+
     lang = request.form['lang']
     if auth(name, pw):
         if len(code) > 7000:
@@ -166,7 +179,8 @@ def new_post():
             "likes":[],
             "date":datetime.datetime.now().strftime("%Y/%m/%d-%H:%M:%S"),
             "code":code,
-            "lang":lang
+            "lang":lang,
+            "caption":caption
         }
         saveJson()
         flash("Posted Code Block!", category="success")

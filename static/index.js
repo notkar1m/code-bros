@@ -71,6 +71,9 @@ function user(user){
         document.getElementById('name-userProfile').innerText = data['user']
         document.getElementById('points-userProfile').innerText = data['points']
         document.getElementById('joined-userProfile').innerText = data['joined']
+        document.getElementById("share-btn").onclick = () => {
+            share_user(data['user'])
+        }
         if(today == data['birthday'].replace("-", "|").split("|")[1]){
             document.getElementById("bd-userProfile").innerHTML = "🎂"
         }else{
@@ -146,5 +149,9 @@ function copyText(text) {
 
 function share(id){
     copyText(window.location.href + "post/" + id)
+    alertify.success("Copied link!")
+}
+function share_user(name){
+    copyText(window.location.href + "user/" + name)
     alertify.success("Copied link!")
 }

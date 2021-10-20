@@ -389,6 +389,10 @@ tr:nth-child(even) {
     width: fit-content;
 }
 #userProfile i{
+    font-size: 20px;
+    cursor: pointer;
+}
+#userProfile #pfp-user{
     font-size: 80px;
 }
 
