@@ -487,9 +487,9 @@ tr:nth-child(even) {
 }
 
 #comments #close-btn{
-    position: relative;
+    position: fixed;
+    left: 6px;
     top: -6px;
-    left: 561px;
     cursor: pointer;
     font-size: 32px;
     color: #fa8142;
