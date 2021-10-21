@@ -155,3 +155,43 @@ function share_user(name){
     copyText(window.location.href + "user/" + name)
     alertify.success("Copied link!")
 }
+function addComment(id, text){
+    let formdata = new FormData()
+    formdata.append('id',id)
+    formdata.append('text',text)
+    if(text.replace(/\s/g, "").length != 0){    
+        document.getElementById("comment-input").value = ""
+        fetch(`/add-comment`, {method:"POST", body:formdata}).then((res) => {
+            comments(id)
+        })
+            
+    }
+}
+function comments(id){
+    let formdata = new FormData()
+    formdata.append("id", id)
+    show("comments")
+    document.getElementById("comments-bar").innerHTML = ""
+    fetch(`/get-comments`, {method:"POST", body:formdata}).then((res) => {return res.json()}).then((data) => {
+        data = data['res']
+        document.getElementById("send-comment").onclick = () => {
+            addComment(id, document.getElementById("comment-input").value)
+        }
+        for(let i=0;i<Object.keys(data).length;i++){
+            let comment = document.createElement("div")
+            comment.id = "comment"
+            let name = document.createElement("span")
+            name.id = "name"
+            name.onclick = () => {
+                user(data[Object.keys(data)[i]]['author'])
+            }
+            name.innerText = data[Object.keys(data)[i]]['author']
+            let text = document.createElement("span")
+            text.id = "text"
+            text.innerText = ": " + data[Object.keys(data)[i]]['text']
+            comment.appendChild(name)
+            comment.appendChild(text)
+            document.getElementById("comments-bar").appendChild(comment)
+        }
+    })
+}

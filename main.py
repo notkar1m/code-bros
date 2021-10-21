@@ -180,7 +180,8 @@ def new_post():
             "date":datetime.datetime.now().strftime("%Y/%m/%d-%H:%M:%S"),
             "code":code,
             "lang":lang,
-            "caption":caption
+            "caption":caption,
+            "comments":{}
         }
         saveJson()
         flash("Posted Code Block!", category="success")
@@ -211,6 +212,30 @@ def like():
         return "False"
     return jsonify({"res":"login_please"})
 
+
+@app.route('/get-comments', methods=['POST'])
+def get_comments():
+    id = request.form['id']
+    if id in posts.keys():
+        return jsonify({"res":posts[id]['comments']})
+    return "False"
+
+@app.route('/add-comment', methods=['POST'])
+def add_comment():
+    id = request.form['id']
+    text = request.form['text']
+    if id in posts.keys():
+        name = request.cookies.get('name')
+        pw = request.cookies.get('pw')
+        if auth(name, pw):
+            print("auth")
+            posts[id]['comments'][str(len(posts[id]['comments'].keys()))] = {
+                "text":text,
+                "author":name
+            }
+            saveJson()
+            return "Success"
+    return "False"
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, debug=True)

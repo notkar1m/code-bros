@@ -189,6 +189,10 @@ hr{
     width: fit-content;
 
 }
+#comments-btn{
+    cursor:pointer;
+    text-decoration: underline;
+}
 #postDiv input{
     font-size: 25px;
     border-radius: 20px;
@@ -447,7 +451,9 @@ tr:nth-child(even) {
     padding: 20px;
     border-radius: 10px;
 }
-
+#post{
+    border-radius: 10px;
+}
 #post #code-block{
     display: inline-block !important;
     padding: 20px !important;
@@ -478,6 +484,49 @@ tr:nth-child(even) {
 
 .divElement{
     animation: divAppear 0.5s ease-in;
+}
+
+#comments #close-btn{
+    position: relative;
+    top: -6px;
+    left: 561px;
+    cursor: pointer;
+    font-size: 32px;
+    color: #fa8142;
+}
+#comments{
+    background: #2A2E35;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    font-size: 25px;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 20px #0000009c;
+    width: 90%;
+}
+
+#comments #send-comment{
+    cursor: pointer;
+}
+
+#comments-bar{
+    text-align: left;
+}
+#comments-bar #name{
+    cursor: pointer;
+    text-decoration: underline;
+}
+#comments input{
+    font-size: 25px;
+    border-radius: 20px;
+    padding:10px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 20px 0px #2A2E35;
 }
 
 @keyframes divAppear {
