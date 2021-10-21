@@ -494,6 +494,10 @@ tr:nth-child(even) {
     font-size: 32px;
     color: #fa8142;
 }
+#comments-bar{
+    overflow-x: auto;
+    height: 160px;
+}
 #comments{
     background: #2A2E35;
     position: fixed;
